@@ -1,38 +1,275 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  min-height: 100vh;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #e2e8f0;
+}
+
 .App {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 20px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.header p {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+.clock {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  color: #00d4ff;
+  margin-top: 12px;
+  letter-spacing: 2px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 24px;
+}
+
+.widget {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.widget:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.widget-icon {
+  font-size: 1.8rem;
+}
+
+.widget-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+/* Weather Widget */
+.weather-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.weather-temp {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #00d4ff;
+}
+
+.weather-desc {
+  text-align: right;
+  color: #94a3b8;
+}
+
+.weather-desc .condition {
+  font-size: 1.1rem;
+  color: #e2e8f0;
+  margin-bottom: 4px;
+}
+
+.weather-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.weather-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.weather-item .label {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.weather-item .value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #f1f5f9;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Airport Widget */
+.airport-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.airport-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.airport-item .label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.airport-item .value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.airport-item .value.active {
+  color: #4ade80;
+}
+
+.airport-item .value.warning {
+  color: #fbbf24;
+}
+
+.map-placeholder {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  height: 140px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #64748b;
+  font-size: 0.9rem;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
 }
 
-.App-link {
-  color: #61dafb;
+/* News Widget */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+.news-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.news-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.news-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #e2e8f0;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.news-score {
+  background: rgba(123, 44, 191, 0.3);
+  color: #c084fc;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #94a3b8;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #00d4ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+.error {
+  text-align: center;
+  padding: 24px;
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
   }
 }

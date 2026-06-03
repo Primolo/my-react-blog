@@ -1,21 +1,47 @@
+import { useState, useEffect } from 'react';
 import './App.css';
+import WeatherWidget from './components/WeatherWidget';
+import AirportWidget from './components/AirportWidget';
+import NewsWidget from './components/NewsWidget';
 
 function App() {
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatDate = (date) => {
+    return date.toLocaleDateString('fr-FR', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  };
+
+  const formatTime = (date) => {
+    return date.toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+  };
+
   return (
-    <div className="App" style={{padding: '20px', fontFamily: 'system-ui'}}>
-      <header>
-        <h1>🎉 Mon Blog React</h1>
-        <p>Bienvenue sur mon blog ! Déployé via GitHub Actions + Pages.</p>
+    <div className="App">
+      <header className="header">
+        <h1>Dashboard Primo</h1>
+        <p>{formatDate(time)}</p>
+        <div className="clock">{formatTime(time)}</div>
       </header>
-      <main style={{marginTop: '40px'}}>
-        <article>
-          <h2>Premier article</h2>
-          <p>Ce blog est entièrement autonome. Chaque push sur main déclenche un déploiement.</p>
-        </article>
-      </main>
-      <footer style={{marginTop: '60px', opacity: 0.6}}>
-        <p>© 2026 — Propulsé par React + GitHub Pages</p>
-      </footer>
+
+      <div className="dashboard-grid">
+        <WeatherWidget />
+        <AirportWidget />
+        <NewsWidget />
+      </div>
     </div>
   );
 }
